@@ -25,6 +25,7 @@ class Player {
     boolean alive;
     int expToNextLevel = 100;
 
+
     public Player(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
         this.name = name;
         this.health = health;
@@ -48,6 +49,16 @@ class Player {
         health = maxHealth;
         coins = 0;
         exp = 0;
+    }
+
+    public void buy(Item item, Inventory inventory){
+        coins -= item.price;
+        inventory.addItem(item);
+    }
+
+    public void sell(Item item, Inventory inventory){
+        coins += item.sellPrice;
+        inventory.removeItem(item);
     }
 }
 
@@ -246,6 +257,7 @@ class Game{
                                 case 3:
                                     // Inventar Logik
                                     int z = 1;
+                                    int actionInv;
                                     for(int i = 0; i < inventory.size(); i++)
                                     {
                                         Item UpdatetItem = inventory.getItem(i);
@@ -255,26 +267,43 @@ class Game{
 
                                     System.out.println("(" + z + ")" + "Exit");
 
-                                    int actionInv = scanner.nextInt();
-
-                                    if (actionInv == z)
+                                    inv: while (true)
                                     {
-                                        break;
-                                    }
+                                        if (scanner.hasNextInt())
+                                        {
+                                            actionInv = scanner.nextInt();
 
-                                    actionInv--;
+                                            if (actionInv >= 1 && actionInv <= z)
+                                            {
+                                                if (actionInv == z)
+                                                {
+                                                    break inv;
+                                                }
+                                                actionInv--;
 
-                                    Item selectedItem = inventory.getItem(actionInv);
-                                    selectedItem.use(player[plchoise], enemy[ran]);
+                                                Item selectedItem = inventory.getItem(actionInv);
+                                                selectedItem.use(player[plchoise], enemy[ran]);
 
-
-                                    if (inventory.getItem(actionInv).onetimeuse == true)
-                                    {
-                                        inventory.removeItem(selectedItem);
-                                    }
-                                    if (enemy[ran].health > 0)
-                                    {
-                                        enemy[ran].attack(player[plchoise]);
+                                                if (inventory.getItem(actionInv).onetimeuse == true)
+                                                {
+                                                    inventory.removeItem(selectedItem);
+                                                }
+                                                if (enemy[ran].health > 0)
+                                                {
+                                                    enemy[ran].attack(player[plchoise]);
+                                                }
+                                                break inv;
+                                            }
+                                            else
+                                            {
+                                                System.out.println("Ungueltige Option! Nur Zahlen (1-" + z + ")");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            System.out.println("Das ist keine Zahl!");
+                                            scanner.next();
+                                        }
                                     }
 
                                     break;
@@ -289,7 +318,8 @@ class Game{
                             System.out.println("Ungueltige Option! Nur Zahlen (1-4)");
                         }
                     }
-                    else {
+                    else
+                    {
                         System.out.println("Das ist keine Zahl!");
                         scanner.next();
                     }
@@ -321,7 +351,7 @@ class Game{
                         System.out.println("(1) Ja");
                         System.out.println("(2) Nein");
 
-                        while (true)
+                        shop:while (true)
                         {
                             if (scanner.hasNextInt())
                             {
@@ -331,10 +361,11 @@ class Game{
                                     if (action == 1)
                                     {
                                         shopCreater.createShop(random, item, player[plchoise], inventory);
+                                        break shop;
                                     }
                                     else
                                     {
-                                        break;
+                                        break shop;
                                     }
                                 }
                                 else
@@ -397,7 +428,7 @@ class Loot{
             System.out.println("DU hast ein Chest gefunden, sehen wir nach was drinnen ist...");
             System.out.println(
                     "Du hast " + randomItem.name + " gefunden!" +
-                    "\nDruecke Taste ENTER um weiter zu spielen!"
+                            "\nDruecke Taste ENTER um weiter zu spielen!"
             );
             scanner.nextLine();
         }
@@ -478,7 +509,6 @@ class ShopCreater{
             System.out.println("(" + 4 + ") Exit");
             System.out.println("===============");
 
-
             action:while (true)
             {
                 if (scanner.hasNextInt())
@@ -493,8 +523,7 @@ class ShopCreater{
                         {
                             action -= 1;
                             if (player.coins >= shopItems[action].price) {
-                                player.coins -= shopItems[action].price;
-                                inventory.addItem(shopItems[action]);
+                                player.buy(shopItems[action], inventory);
                                 System.out.println("\nThank You :)");
                                 break action;
                             } else {
@@ -520,22 +549,22 @@ class ShopCreater{
 
 // hier wird exp zu lvl konvertiert
 class Level{
-     public void LevelUp(Player player){
-         while (player.exp >= player.expToNextLevel) {
+    public void LevelUp(Player player){
+        while (player.exp >= player.expToNextLevel) {
 
-             player.exp -= player.expToNextLevel;
-             player.level++;
+            player.exp -= player.expToNextLevel;
+            player.level++;
 
-             player.expToNextLevel += 50;
+            player.expToNextLevel += 50;
 
-             player.coins += 20;
+            player.coins += 20;
 
-             System.out.println("LEVEL UP!");
-             System.out.println("Dein Level: " + player.level);
-             System.out.println("EXP fuer naechstes Level: " + player.expToNextLevel);
-         }
+            System.out.println("LEVEL UP!");
+            System.out.println("Dein Level: " + player.level);
+            System.out.println("EXP fuer naechstes Level: " + player.expToNextLevel);
+        }
 
-     }
+    }
 }
 
 // Cheats ;)
