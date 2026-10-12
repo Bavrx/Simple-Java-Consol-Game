@@ -13,8 +13,46 @@ public class Main {
     }
 }
 
-// Was kann Player und was hat Player für Werte
-class Player {
+// Terminal User Interface
+class TUI{
+    public void playerSelect(){
+        System.out.println
+                (
+                        "=== Player ===" +
+                                "\n(1) Warrior (HP 550 | AD 30)" +
+                                "\n(2) Mage (HP 200 | AD 60)" +
+                                "\n(3) Archer (HP 350 | AD 20)\n" +
+                                "=== SELECT ==="
+                );
+    }
+
+    public void playerFight(Player player, Enemy enemy){
+        System.out.println
+                (
+                        "\n======== KAMPF ========" +
+                                "\nPlayer: " + player.name +
+                                "\nLVL: " + player.level +
+                                "\nHP: " + player.health + "/" + player.maxHealth +
+                                "\nCoins: " + player.coins +
+                                "\nEP: " + player.exp + "/" + player.expToNextLevel +
+                                "\n-----------------------" +
+                                "\n\n\n-----------------------" +
+                                "\nGegner: " + enemy.name +
+                                "\nHP: " + enemy.health + "/" + enemy.maxHealth +
+                                "\n=======================" +
+                                "\n\n(1) ANGREIFEN\n" + "(2) HEILEN\n" + "(3) INVENTAR\n" + "(4) FLIEHEN\n"
+                );
+    }
+
+    public void spawnShop(){
+        System.out.println("Du hast einen Shop gefunden!");
+        System.out.println("Reingehen?");
+        System.out.println("(1) Ja");
+        System.out.println("(2) Nein");
+    }
+}
+
+class Entety{
     String name;
     int health;
     int maxHealth;
@@ -25,8 +63,7 @@ class Player {
     boolean alive;
     int expToNextLevel = 100;
 
-
-    public Player(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
+    public Entety(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -35,6 +72,14 @@ class Player {
         this.exp = exp;
         this.level = level;
         this.alive = alive;
+    }
+}
+
+// Was kann Player und was hat Player für Werte
+class Player extends Entety{
+
+    public Player(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
+        super(name, health, maxHealth, attackDamage, coins, exp, alive, level);
     }
 
     public void attack(Enemy target) {
@@ -63,27 +108,21 @@ class Player {
 }
 
 // hier wird Enemy erstellt und Angriff gesteuert
-class Enemy {
-    String name;
-    int health;
-    int maxHealth;
-    int attackDamage;
-    int coins;
-    int exp;
-    boolean alive;
+class Enemy extends Entety{
 
-    public Enemy(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive) {
-        this.name = name;
-        this.health = health;
-        this.maxHealth = maxHealth;
-        this.attackDamage = attackDamage;
-        this.coins = coins;
-        this.exp = exp;
-        this.alive = alive;
+    public Enemy(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
+        super(name, health, maxHealth, attackDamage, coins, exp, alive, level);
     }
 
     public void attack(Player target) {
         target.health = Math.max(0, target.health - attackDamage);
+    }
+}
+
+class Boss extends Entety{
+
+    public Boss(String name, int health, int maxHealth, int attackDamage, int coins, int exp, boolean alive, int level) {
+        super(name, health, maxHealth, attackDamage, coins, exp, alive, level);
     }
 }
 
@@ -141,16 +180,10 @@ class Game{
         Loot loot = new Loot();
         DevTools devTools = new DevTools();
         ShopCreater shopCreater = new ShopCreater();
+        TUI tui = new TUI();
 
         // TUI
-        System.out.println
-                (
-                        "=== Player ===" +
-                                "\n(1) Warrior (HP 550 | AD 30)" +
-                                "\n(2) Mage (HP 200 | AD 60)" +
-                                "\n(3) Archer (HP 350 | AD 20)\n" +
-                                "=== SELECT ==="
-                );
+        tui.playerSelect();
 
         while (plchoise < 1 || plchoise > 3) {
             System.out.println("Wähle deine Klasse (1-3):");
@@ -171,7 +204,9 @@ class Game{
         System.out.println("You Selected " + player[plchoise].name);
 
         // Cheat
-        //devTools.getallItems(item, inventory);
+        //devTools.GetAllItems(item, inventory);
+        //devTools.OneHit(player[plchoise]);
+        //devTools.Godmode(player[plchoise]);
 
         // Kämpfen bis Player tot ist
         out: while(player[plchoise].health >= 0)
@@ -198,21 +233,7 @@ class Game{
                 }
 
                 // TUI
-                System.out.println
-                        (
-                                "\n======== KAMPF ========" +
-                                        "\nPlayer: " + player[plchoise].name +
-                                        "\nLVL: " + player[plchoise].level +
-                                        "\nHP: " + player[plchoise].health + "/" + player[plchoise].maxHealth +
-                                        "\nCoins: " + player[plchoise].coins +
-                                        "\nEP: " + player[plchoise].exp + "/" + player[plchoise].expToNextLevel +
-                                        "\n-----------------------" +
-                                        "\n\n\n-----------------------" +
-                                        "\nGegner: " + enemy[ran].name +
-                                        "\nHP: " + enemy[ran].health + "/" + enemy[ran].maxHealth +
-                                        "\n=======================" +
-                                        "\n\n(1) ANGREIFEN\n" + "(2) HEILEN\n" + "(3) INVENTAR\n" + "(4) FLIEHEN\n"
-                        );
+                tui.playerFight(player[plchoise], enemy[ran]);
 
                 // Auf die auswahl des Players reagieren
                 while (true)
@@ -346,10 +367,7 @@ class Game{
                     if (key == ran1)
                     {
                         // TUI
-                        System.out.println("Du hast einen Shop gefunden!");
-                        System.out.println("Reingehen?");
-                        System.out.println("(1) Ja");
-                        System.out.println("(2) Nein");
+                        tui.spawnShop();
 
                         shop:while (true)
                         {
@@ -414,7 +432,7 @@ class Inventory{
     }
 }
 
-// Chest spawn Logik und Enemy Coin und exp Drops
+// Chest spawn Logik und Enemy Coin und exp Drops Logik
 class Loot{
     Scanner scanner = new Scanner(System.in);
 
@@ -453,17 +471,30 @@ class PlayerFactory {
     }
 }
 
+// hier werden Bosse erstellt
+class BossFactory{
+    public static Boss[] createPlayers() {
+        return new Boss[] {
+                new Boss("Warrior", 450, 450, 35, 0, 0, true, 1),
+                new Boss("Mage", 260, 260, 55, 0, 0, true, 1),
+                new Boss("Archer", 350, 350, 30, 0, 0, true, 1)
+        };
+    }
+}
+
 // hier werden Enemys erstellt
 class EnemyFactory {
 
     public static Enemy[] createEnemy() {
         return new Enemy[] {
-                new Enemy("Zombie", 100, 100, 25, 8, 20, true),
-                new Enemy("Goblin", 140, 140, 27, 10, 25, true),
-                new Enemy("Dragon", 300, 300, 32, 25, 60, true),
+                new Enemy("Zombie", 100, 100, 25, 8, 20, true, 0),
+                new Enemy("Goblin", 140, 140, 27, 10, 25, true, 0),
+                new Enemy("Dragon", 300, 300, 32, 25, 60, true, 0),
         };
     }
 }
+
+
 
 // hier werden alle items erstellt, hier mit Randomizer Logik
 class ItemFactory {
@@ -487,7 +518,7 @@ class ItemFactory {
     }
 }
 
-// hiermit kann man sehr leicht den shop erstellen
+// hiermit wird der Shop erstellt
 class ShopCreater{
 
     public Item[] createShop(Random random, Item[] items, Player player, Inventory inventory) {
@@ -569,9 +600,17 @@ class Level{
 
 // Cheats ;)
 class DevTools{
-    public void getallItems(Item[] items, Inventory inventory){
+    public void GetAllItems(Item[] items, Inventory inventory){
         for (int i = 0; i < items.length; i++) {
             inventory.addItem(items[i]);
         }
+    }
+
+    public void Godmode(Player player){
+        player.health = player.maxHealth;
+    }
+
+    public void OneHit(Player player){
+        player.attackDamage = 1000000;
     }
 }
