@@ -1,410 +1,99 @@
-# Simple-Java-Consol-Game
+# ⚔️ Java Terminal RPG
 
+[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge)](#-mitwirken)
 
-Aufgaben:
+Ein rundenbasiertes Text-Adventure (TUI - Terminal User Interface), geschrieben in Java. Spieler können eine von drei Klassen wählen, gegen verschiedene Monster antreten, im Level aufsteigen, Loot sammeln und ihre Ausrüstung in einem Shop verbessern.
 
-Ja — und ich würde dir jetzt bewusst keine Schritt-für-Schritt-Lösung geben. 😄
-Die Aufgabe soll so sein, dass du einiges googeln musst und dabei lernst, wie man sich selbst durch ein Problem arbeitet.
+## ✨ Features
 
-🧙 Java-Konsolenprojekt: Dungeon-Manager
+* **3 Spielbare Klassen:** Wähle zwischen Warrior, Mage und Archer mit individuellen Lebenspunkten (HP) und Angriffsschaden (AD).
+* **Rundenbasiertes Kampfsystem:** Kämpfe gegen Feinde wie Zombies, Goblins und Drachen. Wähle taktisch zwischen Angriff, Heilung, Inventarnutzung oder Flucht.
+* **Loot- & Inventar-System:** Besiegte Gegner lassen Münzen, Erfahrungspunkte (EP) und gelegentlich Schatztruhen mit Items (z.B. Heiltränke, Schwerter) fallen.
+* **Shop-System:** Nach Kämpfen kann zufällig ein Shop erscheinen. Kaufe Items mit gesammelten Münzen.
+* **Leveling-System:** Sammle Erfahrungspunkte, steige im Level auf und erhalte verbesserte Statuswerte sowie Münz-Boni.
+* **DevTools (Cheats):** Integrierte Methoden für Gottmodus, One-Hit-Kills und alle Items (für Testzwecke direkt im Code anpassbar).
 
-Du programmierst ein kleines textbasiertes Dungeon-Spiel.
+## 🚀 Installation & Start
 
-Der Spieler besitzt eine Gruppe von Charakteren und muss gegen verschiedene Gegner kämpfen.
+### Voraussetzungen
+* [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/downloads/) (Version 8 oder neuer empfohlen)
+* Eine Kommandozeile (Terminal, CMD, PowerShell) oder eine Java-IDE (z. B. IntelliJ IDEA, Eclipse).
 
-Dabei sollst du Klassen, Vererbung, Arrays, Schleifen, Methoden, ArrayList, enum, Zufallszahlen und Exceptions miteinander verbinden.
+### Lokales Setup (Terminal)
 
+1. **Repository klonen**
+   ```bash
+   git clone [https://github.com/DEIN_USERNAME/DEIN_REPOSITORY_NAME.git](https://github.com/DEIN_USERNAME/DEIN_REPOSITORY_NAME.git)
+   cd DEIN_REPOSITORY_NAME
 
----
+2. **Code kompilieren**
+Da das Skript das Package org.example verwendet, generiert der Parameter -d . die korrekte Ordnerstruktur für die kompilierten Klassen.
 
-🎯 Ziel
+```javac -d . Main.java```
 
-Beim Start sieht das Programm ungefähr so aus:
+3. **Spiel ausführen**
+   
+```java org.example.Main```
+ 
+### 🎮 Spielanleitung
 
-=== DUNGEON MANAGER ===
+1. Klasse wählen: Das Spiel startet im Terminal. Gib 1, 2 oder 3 ein, um deinen Charakter (Warrior, Mage oder Archer) zu wählen.
 
-1. Charaktere anzeigen
-2. Charakter erstellen
-3. Dungeon betreten
-4. Inventar anzeigen
-5. Programm beenden
+2. Der Kampf: Sobald ein Gegner auftaucht, tippst du eine Zahl (1-4), um deine Aktion auszuführen:
 
-Auswahl:
+- 1. ANGREIFEN - Fügt dem Gegner sofortigen Schaden zu.
 
-Der Benutzer kann sich durch das Programm bewegen.
+- 2. HEILEN - Heilt den eigenen Charakter um festgelegte Lebenspunkte.
 
+- 3. INVENTAR - Öffnet das Inventar, um gesammelte Waffen oder Tränke auszuwählen.
 
----
+- 4. FLIEHEN - Bricht den Kampf ab und beendet den Durchlauf.
 
-1. 🧑 Charakter-System
+3. Nach dem Kampf: Wenn du gewinnst, erhältst du EP und Münzen. Achte auf auftauchende Truhen oder den Händler, um dich für immer stärkere Gegner auszurüsten!
 
-Erstelle eine abstrakte Klasse:
 
-Character
+### 📂 Projektstruktur
 
-Sie soll mindestens besitzen:
+Die Kernlogik befindet sich in der Datei Main.java im Package org.example. Das Projekt ist in folgende Hauptkomponenten unterteilt:
 
-Name
-Health
-MaxHealth
-AttackDamage
+- ``Game`` & ``Main``: Steuern die Hauptschleife und den allgemeinen Spielablauf.
 
-Außerdem soll es mindestens drei Charaktertypen geben:
+- ``TUI`` (Terminal User Interface): Behandelt Konsolenausgaben und Menüs.
 
-Warrior
-Mage
-Archer
+- ``Player``, ``Enemy``, ``Boss``: Lebewesen-Klassen, die von der Superklasse ``Entety`` erben. Verwalten Lebenspunkte, Schaden und Level.
 
-Alle drei sollen von Character erben.
+- ``Inventory`` & ``Item``: Speichern Gegenstände, wickeln den Gebrauch (Heilung/Schaden) sowie den Kauf/Verkauf ab.
 
-Aber jeder soll sich anders verhalten.
+- ``ShopCreater`` & ``Loot``: Generieren zufällige Belohnungen und Händler-Angebote.
 
-Beispielsweise:
+### 🤝 Mitwirken
 
-Warrior → hoher Schaden, viel Leben
-Mage    → wenig Leben, hoher Schaden
-Archer  → mittlere Werte
+Contributions sind jederzeit willkommen! Wenn du das Spiel erweitern möchtest (z. B. neue Gegner, ein Speichersystem oder neue Items):
 
-Du entscheidest selbst über die Werte.
+1. Forke das Repository.
 
-Schwierigkeit
+2. Erstelle einen neuen Branch (git checkout -b feature/NeueIdee).
 
-Baue mindestens eine abstrakte Methode ein.
+3. Committe deine Änderungen (git commit -m 'Füge neuen Boss hinzu').
 
-Zum Beispiel etwas in Richtung:
+4. Pushe in deinen Branch (git push origin feature/NeueIdee).
 
-attack()
+5. Öffne einen Pull Request.
 
-Jede Unterklasse soll ihre eigene Version davon besitzen.
+📝 Lizenz
 
+Dieses Projekt ist unter der MIT-Lizenz lizenziert. Du kannst es frei verwenden, modifizieren und verbreiten.
 
----
 
-2. ⚔️ Kampfsystem
+### Projekt- und Code-Prüfung 
 
-Der Spieler kann einen Charakter auswählen.
+Die obige README erfüllt alle Best Practices, die auf GitHub für professionelle Open-Source-Kommandozeilentools und -spiele gelten: Sie bietet klare Badges, erklärt den Mehrwert (Features), liefert genaue Kompilierungsbefehle und definiert Richtlinien für Open-Source-Beiträge.
 
-Dann wird ein zufälliger Gegner erzeugt.
+Vor dem Hochladen des Codes auf GitHub solltest du noch folgende Optimierungen am Java-Quellcode in Betracht ziehen, um einen professionelleren Eindruck bei anderen Entwicklern zu hinterlassen:
 
-Auch Gegner sollen über Vererbung funktionieren.
-
-Zum Beispiel:
-
-Enemy
-├── Zombie
-├── Goblin
-└── Dragon
-
-Der Kampf könnte ungefähr so aussehen:
-
-=== KAMPF ===
-
-Dein Charakter:
-Arthas
-HP: 80 / 100
-
-Gegner:
-Goblin
-HP: 35 / 35
-
-1. Angreifen
-2. Heilen
-3. Fliehen
-
-Auswahl:
-
-Der Kampf läuft so lange, bis:
-
-Spieler HP <= 0
-
-oder
-
-Gegner HP <= 0
-
-oder der Spieler flieht.
-
-
----
-
-3. 🎲 Zufällige Gegner
-
-Der Gegner soll zufällig ausgewählt werden.
-
-Beispielsweise:
-
-Goblin
-Zombie
-Skeleton
-Dragon
-
-Du sollst selbst herausfinden, wie du aus mehreren Möglichkeiten zufällig eine auswählst.
-
-💡 Google-Suchbegriffe wären zum Beispiel:
-
-Java Random
-Java random number array
-Java Array zufälliges Element
-
-
----
-
-4. 🧺 Charaktere speichern
-
-Der Spieler soll mehrere Charaktere besitzen können.
-
-Zum Beispiel:
-
-Meine Charaktere:
-
-[0] Arthas – Warrior
-[1] Gandalf – Mage
-[2] Legolas – Archer
-
-Du sollst entscheiden, ob du dafür ein Array oder eine ArrayList verwendest.
-
-Aber: Versuche zuerst selbst herauszufinden, warum eine ArrayList hier möglicherweise praktischer wäre.
-
-
----
-
-5. ❤️ Heilung
-
-Jeder Charakter soll sich heilen können.
-
-Aber:
-
-Health darf niemals größer als MaxHealth werden.
-
-Beispiel:
-
-HP: 70 / 100
-
-Heile 50
-
-HP: 100 / 100
-
-Nicht:
-
-HP: 120 / 100
-
-
----
-
-6. 🎒 Inventar
-
-Jeder Charakter soll ein kleines Inventar besitzen.
-
-Zum Beispiel:
-
-Inventar:
-
-0: Heiltrank
-1: Großer Heiltrank
-2: Mana-Trank
-
-Du kannst dafür zunächst einfache Strings verwenden.
-
-Später kannst du daraus eine eigene Klasse machen:
-
-Item
-├── Potion
-├── Weapon
-└── Armor
-
-Das ist optional für die erste Version.
-
-
----
-
-7. 🏆 Erfahrungssystem
-
-Nach einem gewonnenen Kampf bekommt der Charakter XP.
-
-Zum Beispiel:
-
-Goblin besiegt!
-
-+25 XP
-
-XP: 75 / 100
-
-Wenn genug XP vorhanden sind:
-
-LEVEL UP!
-
-Arthas ist jetzt Level 2!
-
-Dabei soll sich beispielsweise MaxHealth und AttackDamage erhöhen.
-
-
----
-
-8. 💾 Speichern
-
-Jetzt kommt der schwierigere Teil.
-
-Wenn das Programm beendet wird:
-
-Programm wird beendet...
-Charaktere werden gespeichert...
-
-Beim nächsten Start:
-
-Charaktere werden geladen...
-
-Die Daten sollen erhalten bleiben.
-
-Hier darfst du definitiv googeln.
-
-Suchbegriffe könnten sein:
-
-Java Datei schreiben
-Java Datei lesen
-Java BufferedWriter
-Java BufferedReader
-Java Files.write
-Java Files.readAllLines
-
-Du musst nicht sofort eine perfekte Speicherlösung bauen.
-
-Eine einfache Textdatei reicht.
-
-
----
-
-9. 🛡️ Fehlerbehandlung
-
-Dein Programm darf nicht sofort abstürzen, wenn jemand sowas eingibt:
-
-Bitte Charakter auswählen:
-
-> abc
-
-oder:
-
-> 999
-
-oder:
-
-> -5
-
-Stattdessen:
-
-Ungültige Eingabe!
-Bitte versuche es erneut.
-
-Hier darfst du deine Kenntnisse über try, catch und Exceptions einsetzen.
-
-
----
-
-10. 🧠 Eine zusätzliche Herausforderung
-
-Jetzt kommt der Teil, bei dem ich sehen möchte, wie du selbst denkst.
-
-Erstelle eine Methode:
-
-selectCharacter()
-
-Die Methode soll dem Benutzer die vorhandenen Charaktere anzeigen und anschließend den ausgewählten Charakter zurückgeben.
-
-Also ungefähr:
-
-Character selected = selectCharacter();
-
-Du musst selbst herausfinden:
-
-Welchen Datentyp muss die Methode zurückgeben?
-
-
----
-
-🔥 Bonus-Challenge
-
-Wenn dir das noch nicht schwer genug ist:
-
-Baue ein Klassensystem mit Fähigkeiten.
-
-Zum Beispiel:
-
-Warrior
-
-1. Normaler Angriff
-2. Heavy Strike
-
-Mage
-
-1. Normaler Angriff
-2. Fireball
-
-Archer
-
-1. Normaler Angriff
-2. Double Shot
-
-Jetzt kannst du überlegen, wie du das programmierst, ohne überall sowas zu schreiben:
-
-if (character instanceof Warrior) {
-    ...
-}
-
-if (character instanceof Mage) {
-    ...
-}
-
-if (character instanceof Archer) {
-    ...
-}
-
-Versuche stattdessen deine Kenntnisse über Vererbung und Polymorphie zu benutzen.
-
-
----
-
-🧩 Deine Regeln
-
-Und jetzt kommt das Wichtigste für deine Übung:
-
-❌ Nicht machen
-
-Problem
-↓
-ChatGPT
-↓
-kompletten Code kopieren
-↓
-fertig
-
-✅ So machen
-
-Problem
-↓
-selbst überlegen
-↓
-Google
-↓
-Dokumentation / Stack Overflow / Beispiele
-↓
-Code verstehen
-↓
-selbst schreiben
-↓
-testen
-↓
-Fehler analysieren
-↓
-weiter
-
-Und wenn du festhängst, kannst du mir deinen aktuellen Code und die Fehlermeldung zeigen.
-
-Dann werde ich dir nicht sofort die fertige Lösung hinschreiben, sondern erstmal fragen bzw. erklären, wo dein Denkfehler liegt und welche Java-Funktion du wahrscheinlich brauchst.
-
-Wenn du irgendwann sagst:
-
-> „Ich habe jetzt 30 Minuten gesucht und komme absolut nicht weiter.“
-
-
-
-Dann können wir gemeinsam einen Schritt zurückgehen und das Problem zerlegen.
-
-Das ist meiner Meinung nach gerade die perfekte Übung für dich, weil du inzwischen weit über if, for und Arrays hinaus bist, aber noch nicht an einem Projekt arbeiten solltest, das 5.000 Zeilen Code benötigt. 😄
+* **Tippfehler bei Klassennamen korrigieren:** Deine Basisklasse heißt aktuell `Entety` (korrekt wäre `Entity`). Auch `ShopCreater` sollte zu `ShopCreator` umbenannt werden.
+* **Variablennamen optimieren:** Die Variable `plchoise` ist ein Tippfehler und sollte `plChoice` oder `playerChoice` heißen.
+* **Klassen auslagern:** Aktuell befinden sich über ein Dutzend Klassen in einer einzigen `Main.java` Datei. Für eine saubere Projektstruktur auf GitHub ist es Best Practice, für jede Klasse (wie `Player.java`, `Item.java`, `Inventory.java`) eine separate Datei im Ordner `src/main/java/org/example/` anzulegen.
+* **Konsolen-Bereinigung (`Console bereinigen`):** Du verwendest eine Schleife, die 50 leere Zeilen ausgibt. Für plattformübergreifende Java-CLI-Anwendungen nutzen erfahrene GitHub-Projekte stattdessen oft echte Clear-Commands wie `System.out.print("\033[H\033[2J"); System.out.flush();` (funktioniert auf fast allen modernen Terminals) anstelle von Zeilenumbrüchen.
