@@ -43,13 +43,13 @@ Da das Skript das Package org.example verwendet, generiert der Parameter -d . di
 
 2. Der Kampf: Sobald ein Gegner auftaucht, tippst du eine Zahl (1-4), um deine Aktion auszuführen:
 
-- 1. ANGREIFEN - Fügt dem Gegner sofortigen Schaden zu.
+- 1.ANGREIFEN - Fügt dem Gegner sofortigen Schaden zu.
 
-- 2. HEILEN - Heilt den eigenen Charakter um festgelegte Lebenspunkte.
+- 2.HEILEN - Heilt den eigenen Charakter um festgelegte Lebenspunkte.
 
-- 3. INVENTAR - Öffnet das Inventar, um gesammelte Waffen oder Tränke auszuwählen.
+- 3.INVENTAR - Öffnet das Inventar, um gesammelte Waffen oder Tränke auszuwählen.
 
-- 4. FLIEHEN - Bricht den Kampf ab und beendet den Durchlauf.
+- 4.FLIEHEN - Bricht den Kampf ab und beendet den Durchlauf.
 
 3. Nach dem Kampf: Wenn du gewinnst, erhältst du EP und Münzen. Achte auf auftauchende Truhen oder den Händler, um dich für immer stärkere Gegner auszurüsten!
 
