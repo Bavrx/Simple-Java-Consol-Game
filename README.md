@@ -85,15 +85,3 @@ Contributions sind jederzeit willkommen! Wenn du das Spiel erweitern möchtest (
 📝 Lizenz
 
 Dieses Projekt ist unter der MIT-Lizenz lizenziert. Du kannst es frei verwenden, modifizieren und verbreiten.
-
-
-### Projekt- und Code-Prüfung 
-
-Die obige README erfüllt alle Best Practices, die auf GitHub für professionelle Open-Source-Kommandozeilentools und -spiele gelten: Sie bietet klare Badges, erklärt den Mehrwert (Features), liefert genaue Kompilierungsbefehle und definiert Richtlinien für Open-Source-Beiträge.
-
-Vor dem Hochladen des Codes auf GitHub solltest du noch folgende Optimierungen am Java-Quellcode in Betracht ziehen, um einen professionelleren Eindruck bei anderen Entwicklern zu hinterlassen:
-
-* **Tippfehler bei Klassennamen korrigieren:** Deine Basisklasse heißt aktuell `Entety` (korrekt wäre `Entity`). Auch `ShopCreater` sollte zu `ShopCreator` umbenannt werden.
-* **Variablennamen optimieren:** Die Variable `plchoise` ist ein Tippfehler und sollte `plChoice` oder `playerChoice` heißen.
-* **Klassen auslagern:** Aktuell befinden sich über ein Dutzend Klassen in einer einzigen `Main.java` Datei. Für eine saubere Projektstruktur auf GitHub ist es Best Practice, für jede Klasse (wie `Player.java`, `Item.java`, `Inventory.java`) eine separate Datei im Ordner `src/main/java/org/example/` anzulegen.
-* **Konsolen-Bereinigung (`Console bereinigen`):** Du verwendest eine Schleife, die 50 leere Zeilen ausgibt. Für plattformübergreifende Java-CLI-Anwendungen nutzen erfahrene GitHub-Projekte stattdessen oft echte Clear-Commands wie `System.out.print("\033[H\033[2J"); System.out.flush();` (funktioniert auf fast allen modernen Terminals) anstelle von Zeilenumbrüchen.
