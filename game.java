@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.Scanner;
 import java.util.Random;
 import java.util.ArrayList;
@@ -186,7 +184,7 @@ class Game{
         tui.playerSelect();
 
         while (plchoise < 1 || plchoise > 3) {
-            System.out.println("Wähle deine Klasse (1-3):");
+            System.out.println("Waehle deine Klasse (1-3):");
 
             if (scanner.hasNextInt()) {
                 plchoise = scanner.nextInt();
@@ -201,7 +199,7 @@ class Game{
         }
 
         plchoise--;
-        System.out.println("You Selected " + player[plchoise].name);
+        System.out.println("Du hast " + player[plchoise].name + " Ausgewählt");
 
         // Cheat
         //devTools.GetAllItems(item, inventory);
@@ -361,7 +359,7 @@ class Game{
                     level.LevelUp(player[plchoise]);
                     loot.Chest(inventory, random);
 
-                    int ran1 = random.nextInt(2);
+                    int ran1 = random.nextInt(5);
                     int key = 1;
 
                     if (key == ran1)
@@ -437,8 +435,8 @@ class Loot{
     Scanner scanner = new Scanner(System.in);
 
     public void Chest(Inventory inventory, Random random) {
-        int key = random.nextInt(6);
-        if (key == 3)
+        int key = random.nextInt(4);
+        if (key == 1)
         {
             // TUI
             Item randomItem = ItemFactory.getRandom(random);
@@ -487,9 +485,9 @@ class EnemyFactory {
 
     public static Enemy[] createEnemy() {
         return new Enemy[] {
-                new Enemy("Zombie", 100, 100, 25, 8, 20, true, 0),
-                new Enemy("Goblin", 140, 140, 27, 10, 25, true, 0),
-                new Enemy("Dragon", 300, 300, 32, 25, 60, true, 0),
+                new Enemy("Zombie", 100, 100, 25, 5, 20, true, 0),
+                new Enemy("Goblin", 140, 140, 27, 8, 25, true, 0),
+                new Enemy("Dragon", 300, 300, 32, 15, 60, true, 0),
         };
     }
 }
