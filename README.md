@@ -9,6 +9,7 @@ Ein rundenbasiertes Text-Adventure (TUI - Terminal User Interface), geschrieben 
 ## ✨ Features
 
 * **3 Spielbare Klassen:** Wähle zwischen Warrior, Mage und Archer mit individuellen Lebenspunkten (HP) und Angriffsschaden (AD).
+* **Bosse:** Spiele gegen Starke Bosse die du schwer ohne Items Töten kannst.
 * **Rundenbasiertes Kampfsystem:** Kämpfe gegen Feinde wie Zombies, Goblins und Drachen. Wähle taktisch zwischen Angriff, Heilung, Inventarnutzung oder Flucht.
 * **Loot- & Inventar-System:** Besiegte Gegner lassen Münzen, Erfahrungspunkte (EP) und gelegentlich Schatztruhen mit Items (z.B. Heiltränke, Schwerter) fallen.
 * **Shop-System:** Nach Kämpfen kann zufällig ein Shop erscheinen. Kaufe Items mit gesammelten Münzen.
